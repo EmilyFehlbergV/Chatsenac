@@ -1,17 +1,43 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const Mybuttom());
-}
+  runApp(MyApp());
+  }
 
-class Mybuttom extends StatelessWidget {
-  const Mybuttom({super.key, required this.title});
-
-  final String title;
-
+  class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return Text("", textDirection: TextDirection.ltr);
+   return MaterialApp(
+     home: Scaffold(
+       body: Login(),
+     ),
+   );
+  }
+
+
+  }
+
+class Login extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        FlutterLogo(size: 18,),
+        Text("ChatSENAC"),
+        Text("Entre na sua conta"),
+        Text("Coloque seu email e senha para logar"),
+        Text("Email"),
+        TextField(),
+        Text("Senha"),
+        TextField(),
+        InkWell(child: Text("Esqueceu a senha?")),
+        ElevatedButton(onPressed: null, child: Text("Entrar")),
+        Text("ou"),
+        ElevatedButton(onPressed: null, child: Text("Continuar com Google")),
+        ElevatedButton(onPressed: null, child: Text("Continuar com Facebook")),
+        Text("Não tem uma conta?"),
+        InkWell(child: Text("Cadastre-se")),
+      ],
+    );
   }
 }
