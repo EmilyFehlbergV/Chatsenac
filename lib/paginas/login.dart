@@ -44,6 +44,7 @@ class Login extends StatelessWidget {
           TextField(
             obscureText: true,
             decoration: InputDecoration(
+              suffixIcon: Icon(Icons.visibility_off),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),
