@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_app/utilitarios/tipografia.dart';
+import 'cadastro.dart';
 
 class Login extends StatelessWidget {
   @override
@@ -149,7 +150,14 @@ class Login extends StatelessWidget {
             children: [
               Text("Não tem uma conta?", textAlign: TextAlign.center),
               SizedBox(width: 5),
-              InkWell(
+              GestureDetector(
+                onTap:() {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Cadastro()),
+                  );
+                },
+
                 child: Text(
                   "Cadastre-se",
                   textAlign: TextAlign.center,
