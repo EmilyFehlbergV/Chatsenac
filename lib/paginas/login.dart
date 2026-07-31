@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_app/utilitarios/tipografia.dart';
 import 'cadastro.dart';
+import 'dashboard.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login>{
+  final emailControlador = TextEditingController();
+  final senhaControlador = TextEditingController();
+
+  void fazerLogin() {
+    if (emailControlador.text != "teste@email.com" || senhaControlador.text != "123456") {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("E-mail e/ou senha estão incorretos!")));
+    }
+
+    Navigator.push(context,
+      MaterialPageRoute(builder: (context) => Dashboard()),
+    );
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +41,7 @@ class Login extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 32),
-        
+
               //Titulos
               Text("Entre na sua conta", style: Tipografia.h1),
               SizedBox(height: 12),
@@ -33,6 +53,7 @@ class Login extends StatelessWidget {
               //campos
               Text("Email", style: Tipografia.subtitulo),
               TextField(
+                controller: emailControlador   ,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
@@ -40,11 +61,12 @@ class Login extends StatelessWidget {
                   isDense: true,
                 ),
               ),
-        
+
               const SizedBox(height: 16),
-        
+
               Text("Senha", style: Tipografia.subtitulo),
               TextField(
+                controller: senhaControlador,
                 obscureText: true,
                 decoration: InputDecoration(
                   suffixIcon: Icon(Icons.visibility_off),
@@ -55,7 +77,7 @@ class Login extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-        
+
               InkWell(
                 child: Text(
                   "Esqueceu a senha?",
@@ -64,9 +86,9 @@ class Login extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 24),
-        
+
               ElevatedButton(
-                onPressed: () {},
+                onPressed: fazerLogin ,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
                   foregroundColor: Colors.white,
@@ -81,7 +103,7 @@ class Login extends StatelessWidget {
                 child: const Text("Entrar"),
               ),
               const SizedBox(height: 24),
-        
+
               Row(
                 children: [
                   Expanded(child: Divider()),
@@ -92,15 +114,15 @@ class Login extends StatelessWidget {
                   Expanded(child: Divider()),
                 ],
               ),
-        
+
               SizedBox(height: 16),
-        
+
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-        
+
                   padding: const EdgeInsets.symmetric(
                     vertical: 10.0,
                     horizontal: 24.0,
@@ -118,15 +140,15 @@ class Login extends StatelessWidget {
                   ],
                 ),
               ),
-        
+
               SizedBox(height: 16),
-        
+
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: Colors.black,
-        
+
                   padding: const EdgeInsets.symmetric(
                     vertical: 10.0,
                     horizontal: 24.0,
@@ -144,9 +166,9 @@ class Login extends StatelessWidget {
                   ],
                 ),
               ),
-        
+
               SizedBox(height: 54),
-        
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -159,7 +181,7 @@ class Login extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => Cadastro()),
                       );
                     },
-        
+
                     child: Text(
                       "Cadastre-se",
                       textAlign: TextAlign.center,
