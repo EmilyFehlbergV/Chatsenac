@@ -17,7 +17,7 @@ class _LoginState extends State<Login>{
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("E-mail e/ou senha estão incorretos!")));
     }
 
-    Navigator.push(context,
+    Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => Dashboard()),
     );
 
