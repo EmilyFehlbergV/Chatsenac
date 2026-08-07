@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:primeiro_app/utilitarios/tipografia.dart';
 import 'cadastro.dart';
 import 'dashboard.dart';
+import 'package:http/http.dart' as http;
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -14,11 +17,27 @@ class _LoginState extends State<Login>{
   final emailControlador = TextEditingController();
   final senhaControlador = TextEditingController();
 
-  void fazerLogin() {
-    if (emailControlador.text != "teste@email.com" || senhaControlador.text != "123456") {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("E-mail e/ou senha estão incorretos!")));
-    }
+  Future<void> fazerLogin() async {
+    var url = Uri.http("10.112.4.33", "login");
+    var resposta = await http.post(
+        url,
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: jsonEncode({'email': emailControlador.text,'senha':senhaControlador.text}),
+    );
 
+
+    if (resposta.statusCode != 200) {
+      var dados = jsonDecode(resposta.body);
+
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${dados["message"]}")),
+      );
+
+      return;
+    }
     Navigator.pushReplacement(context,
       MaterialPageRoute(builder: (context) => Dashboard()),
     );
@@ -27,6 +46,7 @@ class _LoginState extends State<Login>{
 
   @override
   Widget build(BuildContext context) {
+    bool esconder = true;
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -68,10 +88,18 @@ class _LoginState extends State<Login>{
 
               Text("Senha", style: Tipografia.subtitulo),
               TextField(
+
                 controller: senhaControlador,
-                obscureText: true,
+                obscureText: esconder,
                 decoration: InputDecoration(
-                  suffixIcon: Icon(Icons.visibility_off),
+                  suffixIcon: IconButton(
+                    icon: Icon(esconder ? Icons.visibility_off : Icons.visibility),
+                    onPressed: () {
+                      setState(() {
+                        esconder = !esconder;
+                      });
+                    },
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),
